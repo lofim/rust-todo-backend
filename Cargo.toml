@@ -4,3 +4,6 @@ version = "0.1.0"
 authors = ["Martin Lofaj <lofajmatko@gmail.com>"]
 
 [dependencies]
+iron = "*"
+rustc-serialize = "*"
+router = "*"
