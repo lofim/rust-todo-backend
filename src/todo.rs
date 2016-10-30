@@ -1,10 +1,13 @@
 use uuid::Uuid;
+use rustc_serialize::json;
 
+#[derive(RustcDecodable, RustcEncodable, Clone)]
 pub enum State {
     Open,
-    Closed
+    Done
 }
 
+#[derive(RustcDecodable, RustcEncodable, Clone)]
 pub struct TodoItem {
     text: String,
     id: String,
@@ -19,4 +22,13 @@ impl TodoItem {
             state: State::Open
         }
     }
+
+    pub fn get_id(self) -> String {
+        self.id
+    }
+}
+
+#[derive(RustcDecodable)]
+pub struct TodoPartial {
+    pub text: String,
 }

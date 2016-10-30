@@ -6,5 +6,9 @@ authors = ["Martin Lofaj <lofajmatko@gmail.com>"]
 [dependencies]
 iron = "*"
 router = "*"
-serde = "*"
-uuid = { version = "*", features = ["serde", "v4"] }
+persistent = "*"
+bodyparser = "*"
+
+uuid = { version = "*", features = ["v4"] }
+
+rustc-serialize = "*"
