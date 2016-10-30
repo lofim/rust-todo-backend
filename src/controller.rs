@@ -35,13 +35,13 @@ pub fn create_handler(request: &mut Request) -> IronResult<Response> {
     todo_items.push(new_todo_item.clone());
     
     // ugly json creation
-    Ok(Response::with((status::Ok, "{\"id\": \"{}\"}", new_todo_item.get_id())))
-}
-
-pub fn delete_handler(request: &mut Request) -> IronResult<Response> {
-    unimplemented!();
+    Ok(Response::with((status::Ok, format!("{{\"id\": \"{}\"}}", new_todo_item.get_id()))))
 }
 
 pub fn update_handler(request: &mut Request) -> IronResult<Response> {
+    unimplemented!();
+}
+
+pub fn delete_handler(request: &mut Request) -> IronResult<Response> {
     unimplemented!();
 }
