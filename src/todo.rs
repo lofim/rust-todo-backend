@@ -1,5 +1,4 @@
 use uuid::Uuid;
-use rustc_serialize::json;
 
 #[derive(RustcDecodable, RustcEncodable, Clone)]
 pub enum State {
@@ -23,8 +22,12 @@ impl TodoItem {
         }
     }
 
-    pub fn get_id(self) -> String {
-        self.id
+    pub fn get_id(&self) -> &str {
+        &self.id
+    }
+
+    pub fn update(&mut self, partial: TodoPartial) {
+        self.text = partial.text;
     }
 }
 
