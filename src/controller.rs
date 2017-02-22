@@ -3,7 +3,7 @@ use std::ops::Deref;
 use iron::prelude::*;
 use iron::status;
 
-use rustc_serialize::json;
+use serde_json;
 use persistent::State;
 use bodyparser;
 use router::Router;
@@ -15,7 +15,7 @@ pub fn list_handler(request: &mut Request) -> IronResult<Response> {
     let mutex = request.get::<State<TodoItems>>().unwrap();
     let todo_items = mutex.read().unwrap();
 
-    let encoded_json = json::encode(todo_items.deref()).unwrap();
+    let encoded_json = serde_json::to_string(todo_items.deref()).unwrap();
     Ok(Response::with((status::Ok, encoded_json)))
 }
 
@@ -23,7 +23,7 @@ pub fn create_handler(request: &mut Request) -> IronResult<Response> {
     // TODO: all the itry iexpect calls can be probably rewitten using the functor methods
     let body_option = itry!(request.get::<bodyparser::Raw>(), status::BadRequest);
     let raw_body = iexpect!(body_option, status::BadRequest);
-    let todo_partial = itry!(json::decode::<TodoPartial>(&raw_body), status::BadRequest);
+    let todo_partial: TodoPartial = itry!(serde_json::from_str(&raw_body), status::BadRequest);
     
     let mutex = request.get::<State<TodoItems>>().unwrap();
     let mut todo_items = mutex.write().unwrap();
@@ -43,7 +43,7 @@ pub fn update_handler(request: &mut Request) -> IronResult<Response> {
     // get the body
     let body_option = itry!(request.get::<bodyparser::Raw>(), status::BadRequest);
     let raw_body = iexpect!(body_option, status::BadRequest);
-    let todo_partial = itry!(json::decode::<TodoPartial>(&raw_body), status::BadRequest);
+    let todo_partial = itry!(serde_json::from_str(&raw_body), status::BadRequest);
 
     let mutex = request.get::<State<TodoItems>>().unwrap();
     let mut todo_items = mutex.write().unwrap();

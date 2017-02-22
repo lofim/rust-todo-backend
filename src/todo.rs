@@ -1,12 +1,12 @@
 use uuid::Uuid;
 
-#[derive(RustcDecodable, RustcEncodable, Clone)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum State {
     Open,
     Done
 }
 
-#[derive(RustcDecodable, RustcEncodable, Clone)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct TodoItem {
     text: String,
     id: String,
@@ -31,7 +31,7 @@ impl TodoItem {
     }
 }
 
-#[derive(RustcDecodable)]
+#[derive(Deserialize)]
 pub struct TodoPartial {
     pub text: String,
 }

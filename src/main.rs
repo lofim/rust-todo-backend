@@ -3,8 +3,11 @@ extern crate router;
 extern crate uuid;
 
 #[macro_use]
+extern crate serde_derive;
+extern crate serde_json;
+
+#[macro_use]
 extern crate iron;
-extern crate rustc_serialize;
 extern crate persistent;
 extern crate bodyparser;
 
@@ -17,9 +20,9 @@ use persistent::{State, Read};
 
 use todos::{TodoItems};
 use controller::{
-    list_handler, 
-    create_handler,  
-    delete_handler, 
+    list_handler,
+    create_handler,
+    delete_handler,
     update_handler
 };
 
